@@ -1,4 +1,4 @@
-package furhatos.app.interviewrobot.flow.main
+package furhatos.app.interviewrobot.flow
 
 import furhatos.flow.kotlin.*
 

@@ -1,6 +1,5 @@
 package furhatos.app.interviewrobot.flow
 
-import furhatos.app.interviewrobot.flow.main.Idle
 import furhatos.flow.kotlin.*
 
 val Parent: State = state {
