@@ -1,4 +1,4 @@
-- **1st Priority: Let furhat answer anything when slot is filled, more slots per topic, loop conversation**
+- **1st Priority: Let furhat answer anything when slot is filled(DONE), more slots per topic, loop conversation**
 
 
 - Define all slots for the user profile

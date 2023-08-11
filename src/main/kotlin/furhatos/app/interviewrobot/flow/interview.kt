@@ -48,6 +48,7 @@ val AskAboutCv: State = state(Interaction) {
     }
     onResponse<TellCvIntent> {
         users.current.profile.adjoin(it.intent)
+        furhat.say("${it.intent}")
     }
 }
 
@@ -57,6 +58,7 @@ val AskAboutInterview: State = state(Interaction) {
     }
     onResponse<TellInterviewIntent> {
         users.current.profile.adjoin(it.intent)
+        furhat.say("${it.intent}")
     }
 }
 
@@ -66,5 +68,6 @@ val AskAboutSkills: State = state(Interaction) {
     }
     onResponse<TellSkillIntent> {
         users.current.profile.adjoin(it.intent)
+        furhat.say("${it.intent}")
     }
 }
