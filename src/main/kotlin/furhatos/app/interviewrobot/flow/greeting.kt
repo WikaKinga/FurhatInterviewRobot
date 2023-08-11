@@ -5,7 +5,7 @@ import furhatos.app.interviewrobot.*
 import furhatos.flow.kotlin.*
 import furhatos.nlu.common.No
 
-val Greeting: State = state(Parent) {
+val Greeting: State = state(Interaction) {
     onEntry {
         furhat.ask("Hey there, how can I help you?")
     }

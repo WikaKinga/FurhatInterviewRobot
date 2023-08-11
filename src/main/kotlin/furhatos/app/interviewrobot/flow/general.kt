@@ -1,5 +1,7 @@
 package furhatos.app.interviewrobot.flow
 
+import furhatos.app.interviewrobot.nlu.ChooseTopicIntent
+import furhatos.app.interviewrobot.topic
 import furhatos.flow.kotlin.*
 
 val Idle: State = state {
@@ -18,6 +20,12 @@ val Interaction : State = state {
 
     var nomatches = 0
     var silences = 0
+
+    onResponse<ChooseTopicIntent> {
+        furhat.say("Alright!")
+        users.current.topic.adjoin(it.intent)
+        goto(AnalyzeInterest)
+    }
 
     onResponse {
         nomatches++

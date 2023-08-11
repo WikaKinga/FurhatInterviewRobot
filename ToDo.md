@@ -18,7 +18,7 @@
 - Clarification requests
 
 
-- Make change of topic possible at every state
+- ~~Make change of topic possible at every state~~ DONE
 
 
 - Make things like Skill in the user profile a list of things so that furhat can advise on learning new things if list is too short
