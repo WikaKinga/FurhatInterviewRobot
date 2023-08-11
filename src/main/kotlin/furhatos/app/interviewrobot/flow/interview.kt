@@ -47,27 +47,55 @@ val AskAboutCv: State = state(Interaction) {
         furhat.ask("Tell me a bit about you, like your degree, your work experience and what exactly you need help with.")
     }
     onResponse<TellCvIntent> {
-        users.current.profile.adjoin(it.intent)
+        users.current.cv.adjoin(it.intent)
         furhat.say("So you have ${it.intent}")
+        when {users.current.cv.degree == null || users.current.cv.yrsOfExperience == null || users.current.cv.formerEmployments == null -> reentry()
+            else -> goto(End)
+        }
+        }
+    onReentry {
+        furhat.ask("Can you elaborate some more?")
     }
-}
+    }
+
 
 val AskAboutInterview: State = state(Interaction) {
     onEntry {
         furhat.ask("Tell me about your experience with job interviews and what exactly you need help with.")
     }
     onResponse<TellInterviewIntent> {
-        users.current.profile.adjoin(it.intent)
+        users.current.interview.adjoin(it.intent)
         furhat.say("${it.intent}")
+        when {users.current.interview.confidence == null -> reentry()
+            else -> goto(End)
+        }
     }
-}
+    onReentry {
+        furhat.ask("Can you elaborate some more?")
+    }
+    }
+
 
 val AskAboutSkills: State = state(Interaction) {
     onEntry {
         furhat.ask("Tell me about your technical skills")
     }
     onResponse<TellSkillIntent> {
-        users.current.profile.adjoin(it.intent)
+        users.current.skills.adjoin(it.intent)
         furhat.say("${it.intent}")
+        when {users.current.skills.skill == null -> reentry()
+            else -> goto(End)
+        }
+    }
+    onReentry {
+        furhat.ask("Can you elaborate some more?")
+    }
+    }
+
+
+val End: State = state(Interaction) {
+    onEntry {
+        furhat.say("Thanks for the conversation!")
+        goto(Idle)
     }
 }
