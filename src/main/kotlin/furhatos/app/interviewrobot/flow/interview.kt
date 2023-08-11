@@ -44,17 +44,17 @@ val RequestTopic: State = state(Interaction){
 
 val AskAboutCv: State = state(Interaction) {
     onEntry {
-        furhat.ask("Tell me about your experience with writing cv's")
+        furhat.ask("Tell me a bit about you, like your degree, your work experience and what exactly you need help with.")
     }
     onResponse<TellCvIntent> {
         users.current.profile.adjoin(it.intent)
-        furhat.say("${it.intent}")
+        furhat.say("So you have ${it.intent}")
     }
 }
 
 val AskAboutInterview: State = state(Interaction) {
     onEntry {
-        furhat.ask("Tell me about your experience with job interviews")
+        furhat.ask("Tell me about your experience with job interviews and what exactly you need help with.")
     }
     onResponse<TellInterviewIntent> {
         users.current.profile.adjoin(it.intent)
