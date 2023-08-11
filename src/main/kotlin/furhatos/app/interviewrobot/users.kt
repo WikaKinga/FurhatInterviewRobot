@@ -14,9 +14,14 @@ val User.topic by NullSafeUserDataDelegate {
 
 //User profile
 
-val User.profile by NullSafeUserDataDelegate {
+val User.cv by NullSafeUserDataDelegate {
     TellCvIntent()
-    TellSkillIntent()
-    TellInterviewIntent()
+}
 
+val User.interview by NullSafeUserDataDelegate {
+    TellInterviewIntent()
+}
+
+val User.skills by NullSafeUserDataDelegate {
+    TellSkillIntent()
 }
