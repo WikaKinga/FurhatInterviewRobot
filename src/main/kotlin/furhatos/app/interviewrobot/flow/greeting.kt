@@ -1,7 +1,7 @@
 package furhatos.app.interviewrobot.flow
 
-import furhatos.app.interviewrobot.nlu.ChooseTopicIntent
 import furhatos.app.interviewrobot.*
+import furhatos.app.interviewrobot.nlu.ChooseTopicIntent
 import furhatos.flow.kotlin.*
 import furhatos.nlu.common.No
 

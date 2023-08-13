@@ -11,7 +11,7 @@ class Topic : EnumEntity(speechRecPhrases = true) {
 
 class Degree : EnumEntity(speechRecPhrases = true) {
     override fun getEnum(lang: Language): List<String> {
-        return listOf("Bachelors", "Masters", "Doctorate", "Associates")
+        return listOf("Associates", "Bachelors", "Masters", "Doctorate", "Ph.D.")
     }
 }
 
@@ -22,7 +22,7 @@ class Skill : EnumEntity(speechRecPhrases = true) {
     }
 }
 
-class InterviewConfidence : EnumEntity(speechRecPhrases = true){
+class InterviewConfidence : EnumEntity(speechRecPhrases = true) {
     override fun getEnum(lang: Language): List<String> {
         return listOf("confident", "not confident")
     }

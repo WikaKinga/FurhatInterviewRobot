@@ -1,7 +1,7 @@
 package furhatos.app.interviewrobot
 
 import furhatos.app.interviewrobot.nlu.ChooseTopicIntent
-import furhatos.app.interviewrobot.nlu.TellCvIntent
+import furhatos.app.interviewrobot.nlu.TellCVIntent
 import furhatos.app.interviewrobot.nlu.TellInterviewIntent
 import furhatos.app.interviewrobot.nlu.TellSkillIntent
 import furhatos.flow.kotlin.NullSafeUserDataDelegate
@@ -15,7 +15,7 @@ val User.topic by NullSafeUserDataDelegate {
 //User profile
 
 val User.cv by NullSafeUserDataDelegate {
-    TellCvIntent()
+    TellCVIntent()
 }
 
 val User.interview by NullSafeUserDataDelegate {

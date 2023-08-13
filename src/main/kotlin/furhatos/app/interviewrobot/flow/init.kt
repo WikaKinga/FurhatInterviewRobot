@@ -2,8 +2,8 @@ package furhatos.app.interviewrobot.flow
 
 import furhatos.app.interviewrobot.setting.DISTANCE_TO_ENGAGE
 import furhatos.app.interviewrobot.setting.MAX_NUMBER_OF_USERS
-import furhatos.flow.kotlin.State
 import furhatos.flow.kotlin.furhat
+import furhatos.flow.kotlin.State
 import furhatos.flow.kotlin.state
 import furhatos.flow.kotlin.users
 
@@ -19,6 +19,7 @@ val Init: State = state {
                 furhat.attend(users.random)
                 goto(Greeting)
             }
+
             else -> goto(Idle)
         }
     }
