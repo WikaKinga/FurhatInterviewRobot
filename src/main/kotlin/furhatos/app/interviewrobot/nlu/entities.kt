@@ -16,7 +16,6 @@ class Degree : EnumEntity(speechRecPhrases = true) {
 }
 
 class Skill : EnumEntity(speechRecPhrases = true) {
-
     override fun getEnum(lang: Language): List<String> {
         return listOf("Python", "Java", "HTML")
     }

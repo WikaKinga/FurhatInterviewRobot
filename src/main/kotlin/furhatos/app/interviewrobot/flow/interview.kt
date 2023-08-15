@@ -43,14 +43,17 @@ val RequestTopic: State = state(Interaction) {
     }
 
     onResponse<ChooseTopicIntent> {
+        randomizeClarificationRequest()
         goto(AnalyzeInterest)
     }
 
     onResponse<Yes> {
+        randomizeClarificationRequest()
         furhat.ask(requestTopic)
     }
 
     onResponse<No> {
+        randomizeClarificationRequest()
         goto(End)
     }
 }
@@ -62,6 +65,7 @@ val AskAboutCV: State = state(Interaction) {
 
     onResponse<TellCVIntent> {
         users.current.cv.adjoin(it.intent)
+        randomizeClarificationRequest()
         if ( // if there is an empty slot, seek to fill it
             users.current.cv.degree == null ||
             users.current.cv.formerPositions == null ||
@@ -90,6 +94,7 @@ val AskAboutInterview: State = state(Interaction) {
 
     onResponse<TellInterviewIntent> {
         users.current.interview.adjoin(it.intent)
+        randomizeClarificationRequest()
         furhat.say("${it.intent}")
         when (users.current.interview.confidence) {
             null -> reentry()
@@ -109,6 +114,7 @@ val AskAboutSkills: State = state(Interaction) {
 
     onResponse<TellSkillIntent> {
         users.current.skills.adjoin(it.intent)
+        randomizeClarificationRequest()
         furhat.say("${it.intent}")
         when (users.current.skills.skill) {
             null -> reentry()

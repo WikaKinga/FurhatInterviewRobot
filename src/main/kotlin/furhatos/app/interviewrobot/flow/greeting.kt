@@ -2,6 +2,7 @@ package furhatos.app.interviewrobot.flow
 
 import furhatos.app.interviewrobot.*
 import furhatos.app.interviewrobot.language.greet
+import furhatos.app.interviewrobot.language.randomizeClarificationRequest
 import furhatos.app.interviewrobot.nlu.ChooseTopicIntent
 import furhatos.flow.kotlin.*
 import furhatos.nlu.common.No
@@ -13,13 +14,16 @@ val Greeting: State = state(Interaction) {
     }
 
     onResponse<ChooseTopicIntent> {
+        randomizeClarificationRequest()
         furhat.say("Alright!")
         users.current.topic.adjoin(it.intent)
         goto(AnalyzeInterest)
     }
 
     onResponse<No> {
+        randomizeClarificationRequest()
         furhat.say("Okay.")
+        goto(Idle)
     }
 }
 

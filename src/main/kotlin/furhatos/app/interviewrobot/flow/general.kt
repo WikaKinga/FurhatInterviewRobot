@@ -1,5 +1,6 @@
 package furhatos.app.interviewrobot.flow
 
+import furhatos.app.interviewrobot.language.randomizeClarificationRequest
 import furhatos.app.interviewrobot.nlu.ChooseTopicIntent
 import furhatos.app.interviewrobot.topic
 import furhatos.flow.kotlin.*
@@ -21,6 +22,7 @@ val Interaction: State = state {
     var silences = 0
 
     onResponse<ChooseTopicIntent> {
+        randomizeClarificationRequest()
         furhat.say("Alright!")
         users.current.topic.adjoin(it.intent)
         goto(AnalyzeInterest)
