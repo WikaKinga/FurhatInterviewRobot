@@ -13,7 +13,6 @@ val Idle: State = state {
         furhat.attend(it)
         goto(Greeting)
     }
-
 }
 
 val Interaction: State = state {

@@ -28,8 +28,10 @@ open class TellCVIntent : Intent(), TextGenerator {
         return listOf(
             "I have a @degree",
             "I have worked for @formerPositions companies",
+            "I have @yrsOfExperience years of work experience",
             "I have @yrsOfExperience years of experience in that field",
-            "I have a @degree and have worked for @formerEmployments companies"
+            "I have a @degree and have worked for @formerPositions companies",
+            "I have worked for @formerPositions companies over @yrsOfExperience years"
         )
     }
 
@@ -49,7 +51,6 @@ class TellInterviewIntent : Intent(), TextGenerator {
     var confidence: InterviewConfidence? = null
     override fun getExamples(lang: Language): List<String> {
         return listOf(
-            "I am @confidence",
             "I am @confidence"
         )
     }
@@ -67,7 +68,9 @@ class TellSkillIntent : Intent(), TextGenerator {
     var skill: Skill? = null
     override fun getExamples(lang: Language): List<String> {
         return listOf(
-            "I know @skill"
+            "I know @skill",
+            "I am proficient in @skill",
+            "I have experience with @skill"
         )
     }
 
