@@ -1,4 +1,4 @@
-package furhatos.app.interviewrobot.flow
+package furhatos.app.interviewrobot.language
 
 import furhatos.flow.kotlin.furhat
 import furhatos.flow.kotlin.onResponse

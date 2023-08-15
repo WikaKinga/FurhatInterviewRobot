@@ -26,12 +26,27 @@ class TellCVIntent : Intent(), TextGenerator {
 
     override fun getExamples(lang: Language): List<String> {
         return listOf(
+            "@degree",
+            "@formerPositions",
+            "@yrsOfExperience",
             "I have a @degree",
+            "I have a @degree degree",
+            "I have had @formerPositions jobs",
+            "I have held @formerPositions positions",
             "I have worked for @formerPositions companies",
+            "I have worked in @formerPositions companies",
+            "I have worked for @yrsOfExperience years",
+            "I have @yrsOfExperience years of experience",
             "I have @yrsOfExperience years of work experience",
             "I have @yrsOfExperience years of experience in that field",
             "I have a @degree and have worked for @formerPositions companies",
-            "I have worked for @formerPositions companies over @yrsOfExperience years"
+            "I have a @degree and have worked for @yrsOfExperience years",
+            "I have worked for @formerPositions companies over @yrsOfExperience years",
+            "I have worked for @yrsOfExperience years in @formerPositions companies",
+            "I have worked for @yrsOfExperience years in @formerPositions positions",
+            "I have a @degree, have worked for @yrsOfExperience years, and have had @formerPositions jobs",
+            "I have a @degree, have worked for @yrsOfExperience years, and have held @formerPositions positions",
+            "I have worked for @yrsOfExperience years in @formerPositions companies and have a @degree"
         )
     }
 

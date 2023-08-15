@@ -1,11 +1,14 @@
 package furhatos.app.interviewrobot.flow
 
 import furhatos.app.interviewrobot.*
+import furhatos.app.interviewrobot.language.*
 import furhatos.app.interviewrobot.nlu.ChooseTopicIntent
 import furhatos.app.interviewrobot.nlu.TellCVIntent
 import furhatos.app.interviewrobot.nlu.TellInterviewIntent
 import furhatos.app.interviewrobot.nlu.TellSkillIntent
 import furhatos.flow.kotlin.*
+import furhatos.nlu.common.No
+import furhatos.nlu.common.Yes
 
 val AnalyzeInterest: State = state(Interaction) {
     onEntry {
@@ -23,7 +26,7 @@ val AnalyzeInterest: State = state(Interaction) {
             }
 
             else -> {
-                furhat.say("No suitable topic given.")
+                furhat.say(topicNotFound)
                 goto(RequestTopic)
             }
         }
@@ -32,40 +35,57 @@ val AnalyzeInterest: State = state(Interaction) {
 
 val RequestTopic: State = state(Interaction) {
     onEntry {
-        furhat.ask("What topic are you interested in talking about?")
+        furhat.ask(requestTopic)
+    }
+
+    onReentry {
+        furhat.ask(additionalTopic)
     }
 
     onResponse<ChooseTopicIntent> {
         goto(AnalyzeInterest)
     }
+
+    onResponse<Yes> {
+        furhat.ask(requestTopic)
+    }
+
+    onResponse<No> {
+        goto(End)
+    }
 }
 
 val AskAboutCV: State = state(Interaction) {
     onEntry {
-        furhat.ask("Tell me a bit about you, like your degree, your work experience and what exactly you need help with.")
+        furhat.ask(requestCV)
     }
 
     onResponse<TellCVIntent> {
         users.current.cv.adjoin(it.intent)
-        furhat.say("So you have ${it.intent}")
-        when {
+        if ( // if there is an empty slot, seek to fill it
             users.current.cv.degree == null ||
-                    users.current.cv.yrsOfExperience == null ||
-                    users.current.cv.formerPositions == null ->
-                reentry()
-
-            else -> goto(End)
+            users.current.cv.formerPositions == null ||
+            users.current.cv.yrsOfExperience == null
+        ) {
+            reentry()
+        } else {
+            furhat.say("So you have ${users.current.cv}")
+            goto(RequestTopic)
         }
     }
 
     onReentry {
-        furhat.ask("Can you elaborate some more?")
+        when { // if slot is empty, specifically targets slot
+            users.current.cv.degree == null -> furhat.ask(requestDegree)
+            users.current.cv.formerPositions == null -> furhat.ask(requestFormerPositions)
+            users.current.cv.yrsOfExperience == null -> furhat.ask(requestYrsOfExperience)
+        }
     }
 }
 
 val AskAboutInterview: State = state(Interaction) {
     onEntry {
-        furhat.ask("Tell me about your experience with job interviews and what exactly you need help with.")
+        furhat.ask(requestInterviewExperience)
     }
 
     onResponse<TellInterviewIntent> {
@@ -73,18 +93,18 @@ val AskAboutInterview: State = state(Interaction) {
         furhat.say("${it.intent}")
         when (users.current.interview.confidence) {
             null -> reentry()
-            else -> goto(End)
+            else -> goto(RequestTopic)
         }
     }
 
     onReentry {
-        furhat.ask("Can you elaborate some more?")
+        furhat.ask(elaborate)
     }
 }
 
 val AskAboutSkills: State = state(Interaction) {
     onEntry {
-        furhat.ask("Tell me about your technical skills")
+        furhat.ask(requestTechnicalSkills)
     }
 
     onResponse<TellSkillIntent> {
@@ -97,14 +117,14 @@ val AskAboutSkills: State = state(Interaction) {
     }
 
     onReentry {
-        furhat.ask("Can you elaborate some more?")
+        furhat.ask(elaborate)
     }
 }
 
 val End: State = state(Interaction) {
     onEntry {
-        furhat.say("Thanks for the conversation!")
-        dialogLogger.endSession()
+        furhat.say(farewell)
+        dialogLogger.endSession() // stops logging for user's session
         goto(Idle)
     }
 }
