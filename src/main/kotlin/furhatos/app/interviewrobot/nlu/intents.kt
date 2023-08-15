@@ -19,7 +19,7 @@ class ChooseTopicIntent : Intent() {
     }
 }
 
-class TellCVIntent : Intent(), TextGenerator {
+open class TellCVIntent : Intent(), TextGenerator {
     var degree: Degree? = null
     var formerPositions: Number? = null
     var yrsOfExperience: Number? = null
@@ -77,5 +77,12 @@ class TellSkillIntent : Intent(), TextGenerator {
 
     override fun toString(): String {
         return toText()
+    }
+}
+
+class RequestCvAdvice : Intent(){
+    var adviceNeed: CvAdviceNeed? = null
+    override fun getExamples(lang: Language): List<String> {
+        return listOf("I need advice on @adviceNeed", "@adviceNeed")
     }
 }
