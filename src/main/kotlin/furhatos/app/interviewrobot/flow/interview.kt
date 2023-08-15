@@ -63,7 +63,6 @@ val AskAboutCV: State = state(Interaction) {
     }
 }
 
-
 val AskAboutInterview: State = state(Interaction) {
     onEntry {
         furhat.ask("Tell me about your experience with job interviews and what exactly you need help with.")
@@ -82,7 +81,6 @@ val AskAboutInterview: State = state(Interaction) {
         furhat.ask("Can you elaborate some more?")
     }
 }
-
 
 val AskAboutSkills: State = state(Interaction) {
     onEntry {
@@ -103,10 +101,10 @@ val AskAboutSkills: State = state(Interaction) {
     }
 }
 
-
 val End: State = state(Interaction) {
     onEntry {
         furhat.say("Thanks for the conversation!")
+        dialogLogger.endSession()
         goto(Idle)
     }
 }

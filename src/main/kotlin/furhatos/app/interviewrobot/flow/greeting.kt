@@ -7,6 +7,7 @@ import furhatos.nlu.common.No
 
 val Greeting: State = state(Interaction) {
     onEntry {
+        dialogLogger.startSession() // logs dialogs and records user speech
         furhat.ask("Hey there, how can I help you?")
     }
 
@@ -17,8 +18,7 @@ val Greeting: State = state(Interaction) {
     }
 
     onResponse<No> {
-        furhat.say("Ok.")
+        furhat.say("Okay.")
     }
-
 }
 
