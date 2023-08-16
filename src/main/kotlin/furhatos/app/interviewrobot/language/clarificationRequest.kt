@@ -1,10 +1,9 @@
-package furhatos.app.interviewrobot.flow
+package furhatos.app.interviewrobot.language
 
-import furhatos.flow.kotlin.furhat
-import furhatos.flow.kotlin.onResponse
-import furhatos.flow.kotlin.partialState
+import furhatos.flow.kotlin.*
+import kotlin.random.Random
 
-val requestClarification = partialState {
+val requestClarification: State = state {
     onEntry {
         furhat.ask {
             random {
@@ -19,10 +18,6 @@ val requestClarification = partialState {
     }
 
     onResponse {
-        terminate()
-    }
-
-    onExit {
         furhat.say {
             random {
                 +"Oh, okay!"
@@ -37,5 +32,15 @@ val requestClarification = partialState {
                 +"Please keep going"
             }
         }
+
+        terminate()
+    }
+}
+
+fun FlowControlRunner.randomizeClarificationRequest() {
+    val probability = 0.20
+    val randomValue: Double = Random.nextDouble()
+    if (randomValue <= probability) {
+        call(requestClarification)
     }
 }
