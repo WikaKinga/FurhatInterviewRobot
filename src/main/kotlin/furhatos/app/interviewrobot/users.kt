@@ -16,7 +16,7 @@ val User.cv by NullSafeUserDataDelegate {
 }
 
 val User.cvAdviceNeed by NullSafeUserDataDelegate{
-    RequestCvAdvice()
+    RequestCVAdvice()
 }
 
 val User.interview by NullSafeUserDataDelegate {

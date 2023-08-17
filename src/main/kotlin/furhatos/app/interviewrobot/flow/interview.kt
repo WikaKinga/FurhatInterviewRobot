@@ -71,7 +71,7 @@ val AskAboutCV: State = state(Interaction) {
             reentry()
         } else {
             furhat.say("So you have ${users.current.cv}")
-            goto(GiveCvAdvice)
+            goto(GiveCVAdvice)
         }
     }
 
@@ -84,11 +84,11 @@ val AskAboutCV: State = state(Interaction) {
     }
 }
 
-val GiveCvAdvice: State = state(Interaction) {
+val GiveCVAdvice: State = state(Interaction) {
     onEntry {
         furhat.ask("What kind of cv advice do you need?")
     }
-    onResponse<RequestCvAdvice> {
+    onResponse<RequestCVAdvice> {
         users.current.cvAdviceNeed.adjoin(it.intent)
         when (users.current.cvAdviceNeed.adviceNeed!!.value) {
             "contents" -> furhat.say("Here is my advice on content.")
@@ -97,7 +97,7 @@ val GiveCvAdvice: State = state(Interaction) {
             "personal interests" -> furhat.say("Here's some kinds of personal interests you can include.")
         }
         goto(AskIfMoreAdvice)
-        }
+    }
 }
 
 
@@ -146,17 +146,33 @@ val AskIfMoreAdvice: State = state(Interaction) {
     onEntry {
         furhat.ask("Do you want more advice on this topic?")
     }
+
     onResponse<Yes> {
         when (users.current.topic.currentTopic!!.value) {
             "cv" -> {
-                goto(GiveCvAdvice)
-            }
+                goto(GiveCVAdvice)
             }
         }
+    }
+
     onResponse<No> {
         goto(ChooseMoreOrEnd)
     }
+}
+
+val ChooseMoreOrEnd: State = state(Interaction) {
+    onEntry {
+        furhat.ask(additionalTopic)
     }
+
+    onResponse<Yes> {
+        goto(RequestTopic)
+    }
+
+    onResponse<No> {
+        goto(End)
+    }
+}
 
 val End: State = state(Interaction) {
     onEntry {
@@ -165,16 +181,3 @@ val End: State = state(Interaction) {
         goto(Idle)
     }
 }
-
-val ChooseMoreOrEnd: State = state(Interaction) {
-    onEntry {
-        furhat.ask("Do you want to talk about another topic?")
-    }
-    onResponse<Yes> {
-        goto(RequestTopic)
-    }
-    onResponse<No> {
-        goto(End)
-    }
-}
-

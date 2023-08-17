@@ -27,7 +27,7 @@ class InterviewConfidence : EnumEntity(speechRecPhrases = true) {
     }
 }
 
-class CvAdviceNeed : EnumEntity(speechRecPhrases = true) {
+class CVAdviceNeed : EnumEntity(speechRecPhrases = true) {
     override fun getEnum(lang: Language): List<String> {
         return listOf("contents:cv contents,contents of a cv,what to put in a cv,how to write a cv",
             "cv with no experience:how to write a cv if I have no experience,how to write a cv for the first job",

@@ -27,7 +27,7 @@ val requestCV = utterance {
 }
 
 val requestDegree = utterance {
-    +"What is the highest level of education you have finished?"
+    +"How many years of work experience do you have?"
 }
 
 val requestFormerPositions = utterance {

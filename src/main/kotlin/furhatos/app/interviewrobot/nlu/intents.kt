@@ -27,8 +27,10 @@ open class TellCVIntent : Intent(), TextGenerator {
     override fun getExamples(lang: Language): List<String> {
         return listOf(
             "@degree",
-            "@formerPositions",
-            "@yrsOfExperience",
+            "@formerPositions jobs",
+            "@formerPositions positions",
+            "@formerPositions companies",
+            "@yrsOfExperience years",
             "I have a @degree",
             "I have a @degree degree",
             "I have had @formerPositions jobs",
@@ -53,7 +55,7 @@ open class TellCVIntent : Intent(), TextGenerator {
     override fun toText(lang: Language): String {
         return generate(
             lang,
-            "[a $degree][$formerPositions former positions][$yrsOfExperience years of working experience]"
+            "[a $degree degree][have worked in $formerPositions roles][and have $yrsOfExperience years of working experience]"
         )
     }
 
@@ -98,8 +100,8 @@ class TellSkillIntent : Intent(), TextGenerator {
     }
 }
 
-class RequestCvAdvice : Intent(){
-    var adviceNeed: CvAdviceNeed? = null
+class RequestCVAdvice : Intent(){
+    var adviceNeed: CVAdviceNeed? = null
     override fun getExamples(lang: Language): List<String> {
         return listOf("I need advice on @adviceNeed", "@adviceNeed")
     }
