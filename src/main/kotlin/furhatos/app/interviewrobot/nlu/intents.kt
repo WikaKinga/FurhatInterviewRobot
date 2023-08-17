@@ -19,6 +19,22 @@ class ChooseTopicIntent : Intent() {
     }
 }
 
+class RequestTopicOptionsIntent : Intent() {
+    override fun getExamples(lang: Language): List<String> {
+        return listOf(
+            "What can we talk about?",
+            "What can you talk about?",
+            "What do you know about?",
+            "What topics do you have?",
+            "Which topics can we talk about?",
+            "Which topics can you talk about?",
+            "Which topics do you know about?",
+            "Which topics can you help me with?",
+            "What can you give me advice on?"
+        )
+    }
+}
+
 open class TellCVIntent : Intent(), TextGenerator {
     var degree: Degree? = null
     var formerPositions: Number? = null
@@ -100,9 +116,26 @@ class TellSkillIntent : Intent(), TextGenerator {
     }
 }
 
-class RequestCVAdvice : Intent(){
-    var adviceNeed: CVAdviceNeed? = null
+class RequestCVAdvice : Intent() {
+    var cvAdviceNeed: CVAdviceNeed? = null
+
     override fun getExamples(lang: Language): List<String> {
-        return listOf("I need advice on @adviceNeed", "@adviceNeed")
+        return listOf("I need advice on @cvAdviceNeed", "@cvAdviceNeed")
+    }
+}
+
+class RequestInterviewAdvice: Intent() {
+    var interviewAdviceNeed: InterviewAdviceNeed? = null
+
+    override fun getExamples(lang: Language): List<String> {
+        return listOf("I need advice on @interviewAdviceNeed", "interviewAdviceNeed")
+    }
+}
+
+class RequestSkillsAdvice: Intent() {
+    var skillsAdviceNeed: SkillsAdviceNeed? = null
+
+    override fun getExamples(lang: Language): List<String> {
+        return listOf("I need advice on @skillsAdviceNeed", "skillsAdviceNeed")
     }
 }

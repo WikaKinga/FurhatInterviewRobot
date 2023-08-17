@@ -23,6 +23,14 @@ val User.interview by NullSafeUserDataDelegate {
     TellInterviewIntent()
 }
 
+val User.interviewAdviceNeed by NullSafeUserDataDelegate{
+    RequestInterviewAdvice()
+}
+
 val User.skills by NullSafeUserDataDelegate {
     TellSkillIntent()
+}
+
+val User.skillsAdviceNeed by NullSafeUserDataDelegate{
+    RequestSkillsAdvice()
 }
