@@ -35,7 +35,7 @@ val requestFormerPositions = utterance {
 }
 
 val requestYrsOfExperience = utterance {
-    +"What is the highest level of education you have finished?"
+    +"How many years of experience do you have in your field? ?"
 }
 
 val requestInterviewExperience = utterance {
