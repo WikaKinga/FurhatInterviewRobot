@@ -172,7 +172,7 @@ val GiveSkillsAdvice: State = state(Interaction) {
 
     onResponse<RequestSkillsAdvice> {
         users.current.skillsAdviceNeed.adjoin(it.intent)
-        when (users.current.interviewAdviceNeed.interviewAdviceNeed!!.value) {
+        when (users.current.skillsAdviceNeed.skillsAdviceNeed!!.value) {
             "format" -> furhat.say("Here is my advice on format.")
             "language" -> furhat.say("Here is my advice on languages.")
         }
