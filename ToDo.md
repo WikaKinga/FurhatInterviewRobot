@@ -9,7 +9,9 @@
     - Maybe can prompt the user to say a little more when too few slot have been filled without being too specific. Ideally the user will not notice there are slots to fill
 
 
- 
+- Implement "Talk" States, where furhat asks random questions about the current topic just to get the user to talk, e.g. "What is your worst job interview experience?"
+  - During this state, user utterances are not saved in a meaningful way, so nothing can be done with them
+
 
 - Clarification requests
 
