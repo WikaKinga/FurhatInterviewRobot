@@ -1,7 +1,9 @@
 package furhatos.app.interviewrobot.language
 
+import furhatos.app.interviewrobot.nlu.Topic
 import furhatos.flow.kotlin.utterance
 import furhatos.gestures.Gestures
+import furhatos.util.Language
 
 val greet = utterance {
     +Gestures.BigSmile
@@ -11,6 +13,11 @@ val greet = utterance {
 val topicNotFound = utterance {
     +Gestures.BrowFrown
     +"No suitable topic given."
+}
+
+val giveTopicOptions = utterance {
+    +"I would be happy to talk with you about ${Topic().getEnum(Language.ENGLISH_US).joinToString(", ")}"
+    +"Do any of those topics interest you?"
 }
 
 val requestTopic = utterance {
@@ -27,7 +34,7 @@ val requestCV = utterance {
 }
 
 val requestDegree = utterance {
-    +"What is the highest level of education you have finished?"
+    +"How many years of work experience do you have?"
 }
 
 val requestFormerPositions = utterance {
