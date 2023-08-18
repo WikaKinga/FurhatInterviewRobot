@@ -66,24 +66,55 @@ val AskAboutCV: State = state(Interaction) {
     onResponse<TellCVIntent> {
         users.current.cv.adjoin(it.intent)
         randomizeClarificationRequest()
-        if ( // if there is an empty slot, seek to fill it
-            users.current.cv.degree == null ||
-            users.current.cv.formerPositions == null ||
-            users.current.cv.yrsOfExperience == null
-        ) {
-            reentry()
-        } else {
-            furhat.say("So you have ${users.current.cv}")
-            goto(GiveCVAdvice)
+        goto(CheckCvProfile)
         }
     }
 
-    onReentry {
+
+val CheckCvProfile : State = state(Interaction) {
+    onEntry {
         when { // if slot is empty, specifically targets slot
-            users.current.cv.degree == null -> furhat.ask(requestDegree)
-            users.current.cv.formerPositions == null -> furhat.ask(requestFormerPositions)
-            users.current.cv.yrsOfExperience == null -> furhat.ask(requestYrsOfExperience)
+            users.current.cv.degree == null -> goto(RequestDegree)
+            users.current.cv.formerPositions == null -> goto(RequestPositions)
+            users.current.cv.yrsOfExperience == null -> goto(RequestExperience)
+            else -> {
+                furhat.say("So you have ${users.current.cv}")
+                goto(GiveCVAdvice)
+            }
         }
+    }
+}
+
+val RequestDegree: State = state(Interaction){
+    onEntry {
+        furhat.ask(requestDegree)
+    }
+    onResponse<TellDegreeIntent> {
+        users.current.cv.degree = it.intent.degree
+        randomizeClarificationRequest()
+        goto(CheckCvProfile)
+    }
+}
+
+val RequestExperience: State = state(Interaction){
+    onEntry {
+        furhat.ask(requestYrsOfExperience)
+    }
+    onResponse<TellExperienceIntent> {
+        users.current.cv.yrsOfExperience = it.intent.yrsOfExperience
+        randomizeClarificationRequest()
+        goto(CheckCvProfile)
+    }
+}
+
+val RequestPositions: State = state(Interaction){
+    onEntry {
+        furhat.ask(requestFormerPositions)
+    }
+    onResponse<TellPositionsIntent> {
+        users.current.cv.formerPositions = it.intent.formerPositions
+        randomizeClarificationRequest()
+        goto(CheckCvProfile)
     }
 }
 
