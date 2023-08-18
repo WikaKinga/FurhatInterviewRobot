@@ -121,7 +121,7 @@ val RequestPositions: State = state(Interaction){
 val RandomCvTalk : State = state(Interaction) {
     onEntry {
         furhat.ask {random {+"What are your concerns when it comes to writing a CV?"
-            +"How many CV's have you written so far?"}}
+            +"How many CVs have you written so far?"}}
     }
     onResponse {
         furhat.say("Interesting!")
@@ -137,7 +137,7 @@ val GiveCVAdvice: State = state(Interaction) {
     onResponse<RequestCVAdvice> {
         users.current.cvAdviceNeed.adjoin(it.intent)
         when (users.current.cvAdviceNeed.cvAdviceNeed!!.value) {
-            "contents" -> furhat.say("Here is my advice on content.")
+            "contents" -> furhat.say(giveCvContentAdvice)
             "cv with no experience" -> furhat.say("Here is my advice for a cv for the first job.")
             "structure" -> furhat.say("Here's how you should structure a cv.")
             "personal interests" -> furhat.say("Here's some kinds of personal interests you can include.")

@@ -50,6 +50,10 @@ val askCvQuestion = utterance {
     +"How many CV's have you written so far?"
 }
 
+val giveCvContentAdvice = utterance {
+    +"A well crafted CV should at least contain the following key sections: 1. Your contact information, 2. Information about your education and degrees. 3. Your work experience. 4. Your technical skills and your soft skills. 5. your projects, achievements and awards. You can also add some personal interests if you'd like."
+}
+
 val requestInterviewExperience = utterance {
     +"Tell me about your experience with job interviews and what exactly you need help with."
 }
