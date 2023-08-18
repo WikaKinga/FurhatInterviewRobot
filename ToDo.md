@@ -30,5 +30,5 @@
 
 
 - Other:
-  - Consent form
-  - Dialogue Evaluation Form
+  - ~~Consent form~~ DONE
+  - ~~Dialogue Evaluation Form~~ DONE
