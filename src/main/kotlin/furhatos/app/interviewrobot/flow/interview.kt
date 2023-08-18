@@ -79,7 +79,7 @@ val CheckCvProfile : State = state(Interaction) {
             users.current.cv.yrsOfExperience == null -> goto(RequestExperience)
             else -> {
                 furhat.say("So you have ${users.current.cv}")
-                goto(GiveCVAdvice)
+                goto(RandomCvTalk)
             }
         }
     }
@@ -115,6 +115,17 @@ val RequestPositions: State = state(Interaction){
         users.current.cv.formerPositions = it.intent.formerPositions
         randomizeClarificationRequest()
         goto(CheckCvProfile)
+    }
+}
+
+val RandomCvTalk : State = state(Interaction) {
+    onEntry {
+        furhat.ask {random {+"What are your concerns when it comes to writing a CV?"
+            +"How many CV's have you written so far?"}}
+    }
+    onResponse {
+        furhat.say("Interesting!")
+        goto(GiveCVAdvice)
     }
 }
 

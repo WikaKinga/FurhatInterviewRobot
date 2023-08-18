@@ -45,8 +45,19 @@ val requestYrsOfExperience = utterance {
     +"How many years of experience do you have in your field? ?"
 }
 
+val askCvQuestion = utterance {
+    +"What are your concerns when it comes to writing a CV?"
+    +"How many CV's have you written so far?"
+}
+
 val requestInterviewExperience = utterance {
     +"Tell me about your experience with job interviews and what exactly you need help with."
+}
+
+val askInterviewQuestion = utterance {
+    +"Tell me about your last job interview"
+    +"Tell me about your worst job interview experience"
+    +"Tell me about your best job interview experience"
 }
 
 val requestTechnicalSkills = utterance {
