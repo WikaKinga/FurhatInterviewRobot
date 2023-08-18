@@ -92,6 +92,7 @@ val RequestDegree: State = state(Interaction){
     onResponse<TellDegreeIntent> {
         users.current.cv.degree = it.intent.degree
         randomizeClarificationRequest()
+        goto(CheckCvProfile)
     }
 }
 
@@ -102,6 +103,7 @@ val RequestExperience: State = state(Interaction){
     onResponse<TellExperienceIntent> {
         users.current.cv.yrsOfExperience = it.intent.yrsOfExperience
         randomizeClarificationRequest()
+        goto(CheckCvProfile)
     }
 }
 
@@ -112,6 +114,7 @@ val RequestPositions: State = state(Interaction){
     onResponse<TellPositionsIntent> {
         users.current.cv.yrsOfExperience = it.intent.formerPositions
         randomizeClarificationRequest()
+        goto(CheckCvProfile)
     }
 }
 
