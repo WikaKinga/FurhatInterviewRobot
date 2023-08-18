@@ -98,7 +98,7 @@ val RequestDegree: State = state(Interaction){
 
 val RequestExperience: State = state(Interaction){
     onEntry {
-        furhat.ask(requestFormerPositions)
+        furhat.ask(requestYrsOfExperience)
     }
     onResponse<TellExperienceIntent> {
         users.current.cv.yrsOfExperience = it.intent.yrsOfExperience
@@ -112,7 +112,7 @@ val RequestPositions: State = state(Interaction){
         furhat.ask(requestFormerPositions)
     }
     onResponse<TellPositionsIntent> {
-        users.current.cv.yrsOfExperience = it.intent.formerPositions
+        users.current.cv.formerPositions = it.intent.formerPositions
         randomizeClarificationRequest()
         goto(CheckCvProfile)
     }

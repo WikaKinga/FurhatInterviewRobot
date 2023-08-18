@@ -96,7 +96,7 @@ class TellPositionsIntent : Intent() {
     var formerPositions: Number? = null
     override fun getExamples(lang: Language): List<String> {
         return listOf(
-            "@positions",
+            "@formerPositions",
             "I have had @formerPositions jobs",
             "I have held @formerPositions positions",
             "I have worked for @formerPositions companies",
@@ -110,6 +110,7 @@ class TellExperienceIntent : Intent() {
     var yrsOfExperience: Number? = null
     override fun getExamples(lang: Language): List<String> {
         return listOf(
+            "@yrsOfExperience",
             "I have worked for @yrsOfExperience years",
             "I have @yrsOfExperience years of experience",
             "I have @yrsOfExperience years of work experience",
