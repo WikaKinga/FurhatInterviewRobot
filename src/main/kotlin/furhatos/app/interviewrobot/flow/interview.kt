@@ -37,6 +37,7 @@ val RequestTopic: State = state(Interaction) {
     }
 
     onResponse<ChooseTopicIntent> {
+        users.current.topic.currentTopic = it.intent.currentTopic //overwrite current topic
         randomizeClarificationRequest()
         goto(AnalyzeInterest)
     }
