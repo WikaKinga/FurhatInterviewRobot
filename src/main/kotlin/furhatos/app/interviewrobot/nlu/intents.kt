@@ -122,7 +122,11 @@ class TellInterviewIntent : Intent(), TextGenerator {
     var confidence: InterviewConfidence? = null
     override fun getExamples(lang: Language): List<String> {
         return listOf(
-            "I am @confidence"
+            "@confidence",
+            "I am @confidence",
+            "I am @confidence during job interviews",
+            "I feel @confidence",
+            "I feel @confidence during job interviews"
         )
     }
 
@@ -135,6 +139,16 @@ class TellInterviewIntent : Intent(), TextGenerator {
     }
 }
 
+class TellInterviewConfidenceIntent : Intent() {
+    var confidence: InterviewConfidence? = null
+    override fun getExamples(lang: Language): List<String> {
+        return listOf("@confidence",
+            "I am @confidence",
+            "I am @confidence during job interviews",
+            "I feel @confidence",
+            "I feel @confidence during job interviews")
+    }
+}
 class TellSkillIntent : Intent(), TextGenerator {
     var skill: Skill? = null
     override fun getExamples(lang: Language): List<String> {
@@ -158,7 +172,8 @@ class RequestCVAdvice : Intent() {
     var cvAdviceNeed: CVAdviceNeed? = null
 
     override fun getExamples(lang: Language): List<String> {
-        return listOf("I need advice on @cvAdviceNeed", "@cvAdviceNeed")
+        return listOf("I need advice on @cvAdviceNeed", "@cvAdviceNeed",
+            "I want to know @CvAdviceNeed")
     }
 }
 

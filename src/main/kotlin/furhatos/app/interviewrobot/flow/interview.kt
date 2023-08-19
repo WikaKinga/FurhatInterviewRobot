@@ -139,9 +139,9 @@ val GiveCVAdvice: State = state(Interaction) {
         users.current.cvAdviceNeed.adjoin(it.intent)
         when (users.current.cvAdviceNeed.cvAdviceNeed!!.value) {
             "contents" -> furhat.say(giveCvContentAdvice)
-            "cv with no experience" -> furhat.say("Here is my advice for a cv for the first job.")
-            "structure" -> furhat.say("Here's how you should structure a cv.")
-            "personal interests" -> furhat.say("Here's some kinds of personal interests you can include.")
+            "cv with no experience" -> furhat.say(giveFirstCvAdvice)
+            "structure" -> furhat.say(giveCvStructureAdvice)
+            "personal interests" -> furhat.say(givePersonalInterestAdvice)
         }
 
         goto(AskIfMoreAdvice)
@@ -157,15 +157,42 @@ val AskAboutInterview: State = state(Interaction) {
     onResponse<TellInterviewIntent> {
         users.current.interview.adjoin(it.intent)
         randomizeClarificationRequest()
-        furhat.say("${it.intent}")
-        when (users.current.interview.confidence) {
-            null -> reentry()
-            else -> goto(GiveInterviewAdvice)
+        goto(CheckInterviewProfile)
+    }
+}
+
+val CheckInterviewProfile : State = state(Interaction) {
+    onEntry {
+        when { // if slot is empty, specifically targets slot
+            users.current.interview.confidence == null -> goto(RequestConfidence)
+            else -> {
+                furhat.say("${users.current.interview}")
+                goto(RandomInterviewTalk)
+            }
         }
     }
+}
 
-    onReentry {
-        furhat.ask(elaborate)
+val RequestConfidence : State = state(Interaction) {
+    onEntry {
+        furhat.ask(requestInterviewExperience)
+    }
+    onResponse<TellInterviewConfidenceIntent> {
+        users.current.interview.confidence = it.intent.confidence
+        randomizeClarificationRequest()
+        goto(CheckInterviewProfile)
+    }
+}
+
+val RandomInterviewTalk : State = state(Interaction) {
+    onEntry {
+        furhat.ask{random{+"Tell me about your last job interview"
+            +"Tell me about your worst job interview experience"
+            +"Tell me about your best job interview experience"}}
+    }
+    onResponse {
+        furhat.say("Ah, I see. Thanks for sharing that.")
+        goto(GiveInterviewAdvice)
     }
 }
 
