@@ -29,6 +29,6 @@
   - How to write a function that checks how many slots in the profile have been filled? Function must access users.kt file as var get reset to null on reentry of state. ~~Maybe in users.kt add different vars for each topic and not one for the whole profile? Maybe would make access easier...~~ DONE THAT PART 
 
 
-- Other:
-  - Consent form
-  - Dialogue Evaluation Form
+~~- Other:~~ 
+  - ~~Consent form~~ DONE
+  - ~~Dialogue Evaluation Form~~ done

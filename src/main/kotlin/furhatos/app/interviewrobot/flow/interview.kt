@@ -17,9 +17,11 @@ val AnalyzeInterest: State = state(Interaction) {
             "job interview" -> {
                 goto(AskAboutInterview)
             }
-
-            "technical skills" -> {
-                goto(AskAboutSkills)
+            "job interviews" -> {
+                goto(AskAboutInterview)
+            }
+            "interviews" -> {
+                goto(AskAboutInterview)
             }
 
             else -> {
@@ -104,37 +106,61 @@ val GiveCvAdvice: State = state(Interaction) {
 
 val AskAboutInterview: State = state(Interaction) {
     onEntry {
-        furhat.ask(requestInterviewExperience)
+        furhat.say("I can give you advice on some topics regarding interviews in general")
+        furhat.say("I had in mind a couple topics")
+
+        furhat.ask("preparation, interview questions and technical tests.")
+        //interview: preparation, interview questions and technical test
     }
 
-    onResponse<TellInterviewIntent> {
+
+    onReentry {
+        furhat.say("${users.current.interview}")
+        furhat.ask("Anything else you want to ask about interviews?")
+    }
+
+    onResponse<requestInterviewPreparationAdvice> {
+        randomizeClarificationRequest()
+        if (users.current.interview.talked_preparation!!) furhat.say("Ah,, we were already over this")
+        furhat.say("${it.intent}")
+        users.current.interview.talked_preparation= true
+        reentry()
+    }
+
+    onResponse<requestInterviewContentAdvice> {
+        if (users.current.interview.talked_content!!) furhat.say("Ah we were already over this")
+        randomizeClarificationRequest()
+        furhat.say("${it.intent}")
+        users.current.interview.talked_content= true
+        reentry()
+    }
+
+    onResponse<requestInterviewTestAdvice> {
+        randomizeClarificationRequest()
+        furhat.say("${it.intent}")
+        users.current.interview.talked_test= true
+        reentry()
+    }
+
+    onResponse<requestInterviewOptionsAdvice> {
         users.current.interview.adjoin(it.intent)
         randomizeClarificationRequest()
         furhat.say("${it.intent}")
-        when (users.current.interview.confidence) {
-            null -> reentry()
-            else -> goto(RequestTopic)
-        }
+        users.current.interview.talked_test= true
+        reentry()
     }
 
-    onReentry {
-        furhat.ask(elaborate)
+    onResponse<doneWithInterviewAdvice> {
+        furhat.say("Ah, I hope I was of some use.")
+        goto(End)
     }
+
+
 }
 
 val AskAboutSkills: State = state(Interaction) {
     onEntry {
         furhat.ask(requestTechnicalSkills)
-    }
-
-    onResponse<TellSkillIntent> {
-        users.current.skills.adjoin(it.intent)
-        randomizeClarificationRequest()
-        furhat.say("${it.intent}")
-        when (users.current.skills.skill) {
-            null -> reentry()
-            else -> goto(End)
-        }
     }
 
     onReentry {

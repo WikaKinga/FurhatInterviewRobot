@@ -38,6 +38,13 @@ val requestYrsOfExperience = utterance {
     +"How many years of experience do you have in your field? ?"
 }
 
+
+val introInterview2 = utterance {
+    +"I had in mind talking about "
+    +"  "
+}
+
+
 val requestInterviewExperience = utterance {
     +"Tell me about your experience with job interviews and what exactly you need help with."
 }
