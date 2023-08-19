@@ -45,20 +45,22 @@ val requestYrsOfExperience = utterance {
     +"How many years of experience do you have in your field? ?"
 }
 
-val askCvQuestion = utterance {
-    +"What are your concerns when it comes to writing a CV?"
-    +"How many CV's have you written so far?"
+val askCVQuestion = utterance {
+    random {
+        +"What are your concerns when it comes to writing a CV?"
+        +"How many CVs have you written so far?"
+    }
 }
 
-val giveCvContentAdvice = utterance {
+val giveCVContentAdvice = utterance {
     +"A well crafted CV should at least contain the following key sections: 1. Your contact information, 2. Information about your education and degrees. 3. Your work experience. 4. Your technical skills and your soft skills. 5. your projects, achievements and awards. You can also add some personal interests if you'd like."
 }
 
-val giveFirstCvAdvice = utterance {
+val giveFirstCVAdvice = utterance {
     +"For a CV for the first job, it's okay if you don't have a lot of experience to mention. Focus on your education and mention a few of your projects and possible internships that are relevant for that position. It is important that you taylor your CV specifically for the company and position you apply for. Mention all your relevant Skills and personal projects or hobbies, especially when they are related to the position, to show that you are passionate about the field. "
 }
 
-val giveCvStructureAdvice = utterance {
+val giveCVStructureAdvice = utterance {
     +"The CV should start with a header, containing all personal information like your contact information, address and links to websites like linkedIn. This can be followed by an optional text section containing a brief summary about yourself and should be tailored to the job you apply for. Next follow the obligatory sections for Education, Experience, Skills and Projects and ans Achievements or Awards you might have. If applicable you can mention your publications at the end. Use a clean font and bullet points for readability. Save and turn in the CV in a common file format like PDF.  "
 }
 
@@ -71,9 +73,11 @@ val requestInterviewExperience = utterance {
 }
 
 val askInterviewQuestion = utterance {
-    +"Tell me about your last job interview"
-    +"Tell me about your worst job interview experience"
-    +"Tell me about your best job interview experience"
+    random {
+        +"Tell me about your last job interview"
+        +"Tell me about your worst job interview experience"
+        +"Tell me about your best job interview experience"
+    }
 }
 
 val requestTechnicalSkills = utterance {

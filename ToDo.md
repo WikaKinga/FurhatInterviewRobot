@@ -18,6 +18,8 @@
 
 
 - Clarification requests
+  - ~~Pace's part~~ DONE
+  - Leander's part 
 
 
 - ~~Make change of topic possible at every state~~ DONE
