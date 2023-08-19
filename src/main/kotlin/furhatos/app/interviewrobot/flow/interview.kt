@@ -37,6 +37,7 @@ val RequestTopic: State = state(Interaction) {
     }
 
     onResponse<ChooseTopicIntent> {
+        users.current.topic.currentTopic = it.intent.currentTopic //overwrite current topic
         randomizeClarificationRequest()
         goto(AnalyzeInterest)
     }
@@ -79,7 +80,7 @@ val CheckCvProfile : State = state(Interaction) {
             users.current.cv.yrsOfExperience == null -> goto(RequestExperience)
             else -> {
                 furhat.say("So you have ${users.current.cv}")
-                goto(GiveCVAdvice)
+                goto(RandomCvTalk)
             }
         }
     }
@@ -118,6 +119,17 @@ val RequestPositions: State = state(Interaction){
     }
 }
 
+val RandomCvTalk : State = state(Interaction) {
+    onEntry {
+        furhat.ask {random {+"What are your concerns when it comes to writing a CV?"
+            +"How many CVs have you written so far?"}}
+    }
+    onResponse {
+        furhat.say("Interesting!")
+        goto(GiveCVAdvice)
+    }
+}
+
 val GiveCVAdvice: State = state(Interaction) {
     onEntry {
         furhat.ask("What kind of cv advice do you need?")
@@ -126,10 +138,10 @@ val GiveCVAdvice: State = state(Interaction) {
     onResponse<RequestCVAdvice> {
         users.current.cvAdviceNeed.adjoin(it.intent)
         when (users.current.cvAdviceNeed.cvAdviceNeed!!.value) {
-            "contents" -> furhat.say("Here is my advice on content.")
-            "cv with no experience" -> furhat.say("Here is my advice for a cv for the first job.")
-            "structure" -> furhat.say("Here's how you should structure a cv.")
-            "personal interests" -> furhat.say("Here's some kinds of personal interests you can include.")
+            "contents" -> furhat.say(giveCvContentAdvice)
+            "cv with no experience" -> furhat.say(giveFirstCvAdvice)
+            "structure" -> furhat.say(giveCvStructureAdvice)
+            "personal interests" -> furhat.say(givePersonalInterestAdvice)
         }
 
         goto(AskIfMoreAdvice)
@@ -145,15 +157,42 @@ val AskAboutInterview: State = state(Interaction) {
     onResponse<TellInterviewIntent> {
         users.current.interview.adjoin(it.intent)
         randomizeClarificationRequest()
-        furhat.say("${it.intent}")
-        when (users.current.interview.confidence) {
-            null -> reentry()
-            else -> goto(GiveInterviewAdvice)
+        goto(CheckInterviewProfile)
+    }
+}
+
+val CheckInterviewProfile : State = state(Interaction) {
+    onEntry {
+        when { // if slot is empty, specifically targets slot
+            users.current.interview.confidence == null -> goto(RequestConfidence)
+            else -> {
+                furhat.say("${users.current.interview}")
+                goto(RandomInterviewTalk)
+            }
         }
     }
+}
 
-    onReentry {
-        furhat.ask(elaborate)
+val RequestConfidence : State = state(Interaction) {
+    onEntry {
+        furhat.ask(requestInterviewExperience)
+    }
+    onResponse<TellInterviewConfidenceIntent> {
+        users.current.interview.confidence = it.intent.confidence
+        randomizeClarificationRequest()
+        goto(CheckInterviewProfile)
+    }
+}
+
+val RandomInterviewTalk : State = state(Interaction) {
+    onEntry {
+        furhat.ask{random{+"Tell me about your last job interview"
+            +"Tell me about your worst job interview experience"
+            +"Tell me about your best job interview experience"}}
+    }
+    onResponse {
+        furhat.say("Ah, I see. Thanks for sharing that.")
+        goto(GiveInterviewAdvice)
     }
 }
 

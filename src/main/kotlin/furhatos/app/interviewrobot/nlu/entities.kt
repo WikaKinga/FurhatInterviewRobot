@@ -23,7 +23,7 @@ class Skill : EnumEntity(speechRecPhrases = true) {
 
 class InterviewConfidence : EnumEntity(speechRecPhrases = true) {
     override fun getEnum(lang: Language): List<String> {
-        return listOf("confident", "not confident")
+        return listOf("confident:confident", "not confident:not confident,insecure")
     }
 }
 
